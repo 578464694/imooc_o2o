@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use \Map;
 
 class Test extends Controller
 {
@@ -19,7 +20,7 @@ class Test extends Controller
 
     public function imooc()
     {
-        return "my name is wangyu";
+        Map::getLngLat('河北省廊坊市河北工业大学城市学院');
     }
 
     /**
