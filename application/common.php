@@ -10,3 +10,18 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function status($status)
+{
+    if($status == 1)
+    {
+        return "<span class='label label-success radius'>正常</span>";
+    }
+    if($status == 0)
+    {
+        return "<span class='label label-default radius'>待审</span>";
+    }
+    return "<span class='label label-danger radius'>删除</span>";
+    //class='label label-danger radius 为u2 自带样式
+}
+
+?>
