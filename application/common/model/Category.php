@@ -53,9 +53,31 @@ class Category extends Model
         ];
 
         $result = $this->where($data)
-            ->order($order)
-            ->paginate();     //分页获取，默认为15
+                        ->order($order)
+                        ->paginate();     //分页获取，默认为15
         //        echo $this->getLastSql();   //TP5 中输出 sql语句的方法
         return $result;
+    }
+
+    /**
+     *  根据品类中父类id 获得子类
+     * @param int $parentId
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function getCategorysByParentId($parentId = 0)
+    {
+        $data = [
+            'parent_id' => $parentId,
+            'status' => 1,
+        ];
+        $order = [
+            'id' => 'desc',
+        ];
+
+        $result = $this->where($data)
+                        ->order($order)
+                        ->select();
+        return $result;
+
     }
 }

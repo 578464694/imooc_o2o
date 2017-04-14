@@ -123,7 +123,12 @@ class Category extends Controller
         }
     }
 
-    // 排序逻辑
+    /**
+     * 排序逻辑
+     * 通过 ajax 获取数据并进行排序
+     * @param $id
+     * @param $listorder
+     */
     public function listorder($id,$listorder)
     {
         if(!request()->isPost())
@@ -165,6 +170,5 @@ class Category extends Controller
             $this->error('状态更新失败');
         }
     }
-
 
 }

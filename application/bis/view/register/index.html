@@ -17,9 +17,9 @@
 				<span class="select-box">
 				<select name="city_id" class="select cityId">
 					<option value="0">--请选择--</option>
-					
-					<option value=""></option>
-					
+					{volist name="citys" id="vo"}
+						<option value="{$vo.id}">{$vo.name}</option>
+					{/volist}
 				</select>
 				</span>
 			</div>
@@ -109,9 +109,9 @@
 			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
 				<select name="category_id" class="select categoryId">
 					<option value="0">--请选择--</option>
-					
-					<option value=""></option>
-					
+					{volist name="categorys" id="vo"}
+						<option value="{$vo.id}">{$vo.name}</option>
+					{/volist}
 				</select>
 				</span> 
 			</div>
@@ -178,6 +178,13 @@ $(function(){
 	var ue = UE.getEditor('editor');
 	var ue1 = UE.getEditor('editor1');
 });
+</script>
+<script>
+	// SCOPE 保存当前视图访问的 API
+	var SCOPE = {
+        'city_url' : "{:url('api/city/getCitysByParentId')}",	// 获取城市
+		'catrgory_url' : "{:url('api/category/getCategorysByParentId')}",	// 获取品类
+    };
 </script>
 </body>
 </html>
