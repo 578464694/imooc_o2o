@@ -34,6 +34,9 @@ return [
    'api' =>[
 	   '__dir__' =>['controller','view'],
 	   'controller' =>['Index','Image'],
-
-   ]
+   ],
+    'bis' =>[
+        '__dir__' => ['controller','view'],
+        'controller' => ['Index','Login','Register']
+    ]
 ];
