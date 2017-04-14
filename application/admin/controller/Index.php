@@ -11,13 +11,21 @@ class Index extends Controller
         return $this->fetch(); //返回 view/index/index.html
     }
 
-    public function test(){
-    	return 'wangxiaoming';
+    public function test()
+    {
+        return 'wangxiaoming';
     }
 
     public function welcome()
     {
-        return "欢迎来到主后台模块";
+//        if (\phpmailer\Email::send('578464694@qq.com', '早上好', '我不是机器人'))
+//        {
+//            return '发送邮件成功';
+//        } else
+//        {
+//            return '发送邮件失败';
+//        }
+        
     }
 
     public function map()
