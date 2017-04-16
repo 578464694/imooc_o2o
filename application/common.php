@@ -49,4 +49,88 @@ function doCurl($url, $type=0, $data=[])
     curl_close($curl);
     return $output;
 }
+
+// 商户入驻申请的文案
+function bisRegister($status)
+{
+    $str = '';
+    switch ($status)
+    {
+        case 0:
+            $str = '待审核，审核后平台方会发送邮件通知，请关注邮件';
+            break;
+        case 1:
+            $str = '入驻申请成功';
+            break;
+        case 2:
+            $str = '非常抱歉，您提交的材料不符合条件，请重新提交';
+            break;
+        default:
+            $str = '该申请已被删除';
+            break;
+    }
+    return $str;
+}
+
+function pagination($obj)
+{
+    if(!$obj)
+    {
+        return '';
+    }
+    return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5-paginate">'.$obj->render().'</div>';
+}
+
+/**
+ *  根据 city_path获取子城市名称
+ * @param $path
+ * @return string
+ */
+function getSeCityName($path)
+{
+    if(empty($path))
+    {
+        return '';
+    }
+    $cityId = 0;
+    if(preg_match('/,/', $path))
+    {
+        $cityPath = explode(',',$path);
+        $cityId = $cityPath[1];
+    }else {
+        $cityId = $path;
+    }
+    $city = model('City')->get($cityId);
+    return $city->name;
+}
+
+/**
+ *  根据 category_path 获得
+ * @param $path
+ * @return array|string
+ */
+function getCategoryPath($path)
+{
+    $categoryinfo = [
+    ];
+
+    if(empty($path))
+    {
+        return '';
+    }
+    $categoryPath = explode(',', $path);    //将 path 分割成数组
+    array_shift($categoryPath);             //移除数组首元素
+    if(sizeof($categoryPath) > 0)
+    {
+        $str = implode($categoryPath);                 // 将数组转换成字符串
+        $categoryPath = explode('|', $str);      //按照 | 分割字符串为数组
+    }
+
+    foreach ($categoryPath as $value) {
+        $category = model('Category')->get($value);
+        $categoryinfo[] = $category->name;
+    }
+
+    return $categoryinfo;
+}
 ?>
