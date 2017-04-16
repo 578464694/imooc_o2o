@@ -135,7 +135,7 @@ class Register extends Controller
         $content = "您提交的入驻申请需等待平台方审核，您可以通过点击链接<a href='".$url."' target='_blank'>查看链接</a> 查看审核状态";
         \phpmailer\Email::send($data['email'],$title,$content);
 
-//        $this->success('申请成功',url('register/waiting',['id' => $bisId]));    // 在本模块下，所以只写url 即可
+        $this->success('申请成功',url('register/waiting',['id' => $bisId]));    // 在本模块下，所以只写url 即可
     }
 
     public function waiting($id)
