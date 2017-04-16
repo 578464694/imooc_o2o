@@ -101,7 +101,10 @@ function getSeCityName($path)
         $cityId = $path;
     }
     $city = model('City')->get($cityId);
-    return $city->name;
+    if($city) {
+        return $city->name;
+    }
+    return '';
 }
 
 /**
@@ -130,7 +133,9 @@ function getCategoryPath($path)
         $category = model('Category')->get($value);
         $categoryinfo[] = $category->name;
     }
-
-    return $categoryinfo;
+    if($categoryinfo) {
+        return $categoryinfo;
+    }
+    return '';
 }
 ?>
