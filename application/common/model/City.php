@@ -25,4 +25,20 @@ class City extends Model
                     ->select();
         return $result;
     }
+
+
+    public function getNormalCitys()
+    {
+        $data = [
+            'status' => 1,
+            'parent_id' => ['gt',0],    //parent_id 大于 0
+        ];
+
+        $order = [
+            'id'=>'desc'
+        ];
+        $citys = $this->where($data)->order($order)->select();
+        return $citys;
+    }
+
 }

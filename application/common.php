@@ -108,6 +108,32 @@ function getSeCityName($path)
 }
 
 /**
+ * 根据 city_path 获得子城市对象
+ * @param $path
+ * @return null|string|static
+ */
+function getSeCitys($path)
+{
+    if(empty($path))
+    {
+        return '';
+    }
+    $cityId = 0;
+    if(preg_match('/,/', $path))
+    {
+        $cityPath = explode(',',$path);
+        $cityId = $cityPath[1];
+    }else {
+        $cityId = $path;
+    }
+    $city = model('City')->get($cityId);
+    if($city) {
+        return $city;
+    }
+    return '';
+}
+
+/**
  *  根据 category_path 获得
  * @param $path
  * @return array|string
@@ -131,11 +157,14 @@ function getCategoryPath($path)
 
     foreach ($categoryPath as $value) {
         $category = model('Category')->get($value);
-        $categoryinfo[] = $category->name;
+        if($category) {         //存在品类信息时，对数组赋值
+            $categoryinfo[] = $category->name;
+        }
     }
     if($categoryinfo) {
         return $categoryinfo;
     }
     return '';
 }
+
 ?>

@@ -19,6 +19,18 @@ class Bis extends Controller
     }
 
     /**
+     *  正常商户列表
+     * @return mixed
+     */
+    public function index()
+    {
+        $bis = $this->obj->getBisByStatus(1);
+        return $this->fetch('', [
+            'bis' => $bis,
+        ]);
+    }
+
+    /**
      *  入驻申请列表
      * @return mixed
      */
@@ -90,11 +102,21 @@ class Bis extends Controller
         }
 
         //发送邮件
-        if ($bis && $location && $account) {
-            \phpmailer\Email::send($email,$title,$content);
-            $this->success('状态更新成功');
+        // 审核后会发送邮件
+        $tip = '';
+        if ($bis && $account) {
+
+            if(\phpmailer\Email::send($email,$title,$content))
+            {
+                $tip .= "邮件发送成功";
+            }
+            else
+            {
+                $tip .= '邮件发送失败';
+            }
+            $this->success("状态更新成功<br>".$tip);
         } else {
-            $this->error('状态更新失败');
+            $this->error("状态更新失败<br>".$tip);
         }
 
     }

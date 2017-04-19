@@ -19,11 +19,20 @@ class Bis extends Validate
         ['open_time','date','营业时间格式不正确'],
         ['username','require|length:6,13','账号不能为空|账户长度在6-13之间'],
         ['password','require|length:6,13','密码不能为空|密码长度在6-13之间'],
+        ['id','require|number|>=:1','ID不能为空|ID为数字|ID不合法'],
+        ['status','number|in:-1,0,1,2','状态必须为数字|状态范围不合法'], //-1代表删除，0代表待审，1代表通过，2代表不通过
     ];
     // 场景设置
     protected $scene = [
        'add' => ['name', 'email', 'logo', 'city_id', 'bank_info', 'bank_user', 'faren', 'faren_tel'],
+        'fendianadd'=>['name','logo','city_id'],
         'headOffice' => ['tel','contact','open_time'],  // 验证总店信息
         'account' => ['username','password'],            //验证账号信息
+        'login'=>['username','password'],
+        'edit' => ['id'],
+        'status' => ['status'],
     ];
+
+
+
 }
