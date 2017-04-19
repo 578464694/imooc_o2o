@@ -3,11 +3,12 @@
 <body>
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加推荐位信息</div>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="{:url('featured/add')}">
+		<input type="hidden" name="id" value="{$featured.id}">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="title">
+				<input type="text" class="input-text" value="{$featured.title}" placeholder="" id="" name="title">
 			</div>
 		</div>
 		
@@ -15,8 +16,8 @@
               <label class="form-label col-xs-4 col-sm-2">推荐图：</label>
               <div class="formControls col-xs-8 col-sm-9">
                 <input id="file_upload"  type="file" multiple="true" >
-                <img style="display: none" id="upload_org_code_img" src="" width="150" height="150">
-                <input id="file_upload_image" name="image" type="hidden" multiple="true" value="">
+                <img id="upload_org_code_img" src="{$featured.image}" width="150" height="150">
+                <input id="file_upload_image" name="image" type="hidden" multiple="true" value="{$featured.image}">
               </div>
         </div>
 		
@@ -26,7 +27,7 @@
 				<select name="type" class="select">
 					
 					{volist name="types" id="vo"}
-						<option value="{$key}">{$vo}</option>
+						<option value="{$key}" {if condition="$key eq $featured.type"}selected="selected"{/if}>{$vo}</option>
 					{/volist}
 				</select>
 				</span>
@@ -35,20 +36,20 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">url：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="url">
+				<input type="text" class="input-text" value="{$featured.url}" placeholder="" id="" name="url">
 			</div>
 		</div>
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">描述：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="description">
+				<input type="text" class="input-text" value="{$featured.description}" placeholder="" id="" name="description">
 			</div>
 		</div>
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 添加</button>	
+				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 修改</button>
 			</div>
 		</div>
 	</form>
