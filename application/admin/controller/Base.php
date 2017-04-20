@@ -52,11 +52,11 @@ class Base extends Controller
         $res = model($model)->save(['listorder' => $listorder],['id'=>intval($id)]);
         if($res)
         {
-            return show(1,'success',url('featured/index'));
+            return show(1,'success',url($model."/index"));
         }
         else
         {
-            return show(0,'error',"{:url(".$model.'/index'.")}");
+            return show(0,'error',url($model."/index"));
         }
     }
 

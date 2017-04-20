@@ -5,7 +5,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\Request;
 
-class Category extends Controller
+class Category extends Base
 {
     protected $obj = null;
     protected $validate = null;
@@ -81,12 +81,6 @@ class Category extends Controller
             $this->error("添加分类失败");
         }
     }
-    //获取页面传递的数据
-//    public function edit()
-//    {
-//        $id = input("get.id", 0, 'intval');
-//
-//    }
     /**编辑页面
      * @param int $id
      * @return mixed
@@ -100,10 +94,6 @@ class Category extends Controller
         }
         $category = $this->obj->get($id);   //get 方法继承自 model，根据 id查找，必须掌握
         $categorys = $categorys = $this->obj->getNormalFirstCategory(); // 获得一级条目
-//        $this->fetch('',[
-//           'category' => $category,
-//            'categorys' => $categorys,
-//        ]);
         return $this->fetch('',[
             'categorys' => $categorys,
             'category' => $category,
@@ -120,54 +110,6 @@ class Category extends Controller
         else
         {
             $this->error('更新失败');
-        }
-    }
-
-    /**
-     * 排序逻辑
-     * 通过 ajax 获取数据并进行排序
-     * @param $id
-     * @param $listorder
-     */
-    public function listorder($id,$listorder)
-    {
-        if(!request()->isPost())
-        {
-            $this->error('请求错误');
-        }
-        $checkData = [
-            'id' => $id,
-            'listorder' => $listorder,
-        ];
-        // 数据校验
-        if(!$this->validate->scene('listorder')->check($checkData))
-        {
-            $this->error($this->validate->getError());
-        }
-        $res = $this->obj->save(['listorder' => $listorder],['id'=>intval($id)]);
-        if($res)
-        {
-            $this->result($_SERVER['HTTP_REFERER'], 1, 'success'); //向 js返回 json数据  1 代表成功
-        }
-        else
-        {
-            $this->result($_SERVER['HTTP_REFERER'], 0, '更新失败'); //$_SERVER['HTTP_REFERER']以得到链接/提交当前页的父页面URL.0 表示失败
-        }
-    }
-
-    // 状态逻辑
-    public function status()
-    {
-        $data = input('get.');
-        if (!$this->validate->scene('status')->check($data)) {
-            $this->error($this->validate->getError());
-        }
-        $res = $this->obj->save(['status' => $data['status']],['id' => intval($data['id'])]);
-        if($res) {
-            $this->success('状态更新成功');
-        }
-        else {
-            $this->error('状态更新失败');
         }
     }
 

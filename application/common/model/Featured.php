@@ -13,6 +13,7 @@ class Featured extends BaseModel
     {
         $data = [
             'type' => $type,
+            'status' => ['neq',-1], // 状态不等于 -1
         ];
         $order = [
             'listorder' => 'desc',

@@ -61,7 +61,11 @@ class Location extends Controller
         }
     }
 
-
+    /**
+     * 门店详情
+     * @param $id
+     * @return mixed|void
+     */
     public function detail($id)
     {
         $data = [
