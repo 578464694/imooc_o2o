@@ -24,4 +24,20 @@ class Featured extends BaseModel
                     ->paginate();
         return $result;
     }
+
+    public function getFeaturedsByTypeAndStatus($type,$status = 1)
+    {
+        $data = [
+            'type' => $type,
+            'status' => $status,
+        ];
+        $order = [
+            'listorder' => 'desc',
+            'id' => 'desc',
+        ];
+        $result = $this->where($data)
+            ->order($order)
+            ->paginate();
+        return $result;
+    }
 }

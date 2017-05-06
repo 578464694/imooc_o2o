@@ -3,6 +3,16 @@ namespace app\admin\controller;
 use think\Controller;
 class Base extends Controller
 {
+    protected $user = null;
+    public function _initialize()
+    {
+        $isLogin = $this->isLogin();
+        if(!$isLogin)
+        {
+            return $this->redirect(url('login/index'));
+        }
+    }
+
     public function status()
     {
         $data = input('get.');
@@ -22,6 +32,15 @@ class Base extends Controller
         }
         else {
             $this->error('状态更新失败');
+        }
+    }
+
+    public function isLogin()
+    {
+        $this->user = $this->getLoginUser();
+        if($this->user && $this->user->id)
+        {
+
         }
     }
 

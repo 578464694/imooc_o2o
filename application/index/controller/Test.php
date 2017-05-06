@@ -1,10 +1,7 @@
 <?php
 
 namespace app\index\controller;
-
 use think\Controller;
-use think\Request;
-use \Map;
 
 class Test extends Controller
 {
@@ -15,77 +12,22 @@ class Test extends Controller
      */
     public function index()
     {
-        //
+        if(request()->isPost())
+        {
+            $data = input('post.');
+            if(!validate('Test')->scene('add')->check($data))
+            {
+                $this->error(validate('Test')->getError());
+            }
+            else
+            {
+                $this->success('测试成功');
+            }
+        }
+        else
+        {
+            return $this->fetch();
+        }
     }
 
-    public function imooc()
-    {
-        Map::getLngLat('河北省廊坊市河北工业大学城市学院');
-    }
-
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
-    }
 }

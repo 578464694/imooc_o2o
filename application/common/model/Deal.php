@@ -32,7 +32,7 @@ class Deal extends BaseModel
      */
     public function updateDealById($data, $id)
     {
-        $result = $this->update($data, ['id' => $id]);
+        $result = $this->save($data, ['id' => $id]);
         return $result;
     }
 
@@ -56,6 +56,72 @@ class Deal extends BaseModel
         }
 
         return $deals;
+    }
+
+    /**
+     * 根据分类以及城市 获得商品数据
+     * @param $category_id 分类id
+     * @param $city_id  城市id
+     * @param int $limit 限制条数
+     */
+    public function getNormalDealByCategoryCityId($category_id, $se_city_id, $limit = 10)
+    {
+        $data = [
+            'end_time' => ['gt',time()],
+            'category_id' => $category_id,
+            'se_city_id' => $se_city_id,
+            'status' => 1,
+        ];
+
+
+
+        $order = [
+            'listorder' => 'desc',
+            'id' => 'desc',
+        ];
+
+        $this->where($data)
+            ->order($order);
+        if($limit)
+        {
+            $this->limit($limit);
+        }
+        $result = $this->select();
+        return $result;
+    }
+
+    public function getDealByConditions($data = [],$orders)
+    {
+
+        if(isset($orders['order_time']))
+        {
+            $order['create_time'] = 'desc';
+        }
+        if(isset($orders['order_price']))
+        {
+            $order['current_price'] = 'desc';
+        }
+        if(isset($orders['order_sales']))
+        {
+            $order['buy_count'] = 'desc';
+        }
+        $order['id'] ='desc';
+        $datas[] = "end_time > ".time();
+        if(!empty($data['se_category_id']))
+        {
+            $datas[] = " find_in_set(".$data['se_category_id'].', category_path)';
+        }
+        if(!empty($data['category_id']))
+        {
+            $datas[] = "category_id = ".$data['category_id'];
+        }
+        if(!empty($data['city_id']))
+        {
+            $datas[] = "city_id = ".$data['city_id'];
+        }
+        $datas[] = "status=1";
+        $result = $this->where(implode(' AND ',$datas))->order($order)->paginate(2);
+        return $result;
     }
 
 }

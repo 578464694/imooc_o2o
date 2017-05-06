@@ -104,7 +104,6 @@ class Register extends Controller
             'is_main' => 1, // 代表总店信息
         ];
         $locationId = model('BisLocation')->add($locationData);
-        echo model('BisLocation')->getLastSql();
         // 自动生成 密码的加盐字符串
         $data['code'] = mt_rand(100, 10000);
         $accountData = [

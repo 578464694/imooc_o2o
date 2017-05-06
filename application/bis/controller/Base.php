@@ -76,4 +76,26 @@ class Base extends Controller
         }
     }
 
+    public function status()
+    {
+        $data = input('get.');
+        if(empty($data['id']))
+        {
+            $this->error('ID 不合法');
+        }
+        if(!is_numeric($data['status']))
+        {
+            $this->error('状态不合法');
+        }
+        // 获取控制器
+        $model = request()->controller();
+        $res = model($model)->save(['status' => $data['status']],['id' => intval($data['id'])]);
+        if($res) {
+            $this->success('状态更新成功');
+        }
+        else {
+            $this->error('状态更新失败');
+        }
+    }
+
 }

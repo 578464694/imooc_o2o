@@ -78,7 +78,9 @@ function pagination($obj)
     {
         return '';
     }
-    return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5-paginate">'.$obj->render().'</div>';
+    // 优化的分页
+    $param = request()->param();    //获取请求参数
+    return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5-paginate">'.$obj->appends($param)->render().'</div>';
 }
 
 /**
@@ -167,4 +169,28 @@ function getCategoryPath($path)
     return '';
 }
 
+/**
+ * 获得门店数量
+ */
+function countLocation($ids)
+{
+    if(!$ids)
+    {
+        return 1;
+    }
+    if(preg_match('/,/', $ids))
+    {
+        $arr = explode(',',$ids);
+        return count($arr);
+    }
+    return 1;
+}
+
+// 设置订单号
+function setOrderSn()
+{
+    list($t1,$t2) = explode(' ',microtime());
+    $t3 = explode('.',$t1 * 10000);
+    return $t2.$t3[0].(mt_rand(10000,99999));
+}
 ?>

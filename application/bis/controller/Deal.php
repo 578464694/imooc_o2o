@@ -68,13 +68,27 @@ class Deal extends Base
             }
             $location = model('BisLocation')->get($data['location_ids'][0]);    // 获取第一个门店的地址
 
+            $data['deal'] = '';
+            if(!empty($data['se_category_id']))
+            {
+                $data['deal'] = implode('|',$data['se_category_id']);
+            }
+
+            $data['dea'] = '';
+            if(!empty($data['se_category_id']))
+            {
+                $data['dea'] = implode(',',$data['se_category_id']);
+            }
+
             // 数据入库
             $dealData = [
                 'name' => $data['name'],
                 'city_id' => $data['city_id'],
+                'se_city_id' => $data['se_city_id'],
                 'city_path' => (!isset($data['se_city_id']))?$data['city_id']:$data['city_id'].','.$data['se_city_id'],
                 'category_id' => $data['category_id'],
-                'category_path' => empty($data['se_category_id'])?'':implode(',',$data['se_category_id']) ,
+                'se_category_id' => $data['category_id'].','.$data['deal'],
+                'category_path' => $data['category_id'].','.$data['dea'] ,
                 'bis_id' => $bisId,
                 'location_ids' =>  !isset($data['location_ids'])?'':implode(',',$data['location_ids']) ,
                 'image' => $data['image'],
@@ -82,16 +96,34 @@ class Deal extends Base
                 'notes' =>!isset($data['notes'])?'':$data['notes'],
                 'start_time' => strtotime($data['start_time']),
                 'end_time' => strtotime($data['end_time']),
+                'coupons_begin_time' => strtotime($data['coupons_begin_time']),
+                'coupons_end_time' => strtotime($data['coupons_end_time']),
                 'origin_price' => $data['origin_price'],
                 'current_price' => $data['current_price'],
                 'total_count' => $data['total_count'],
-                'coupons_begin_time' => strtotime($data['coupons_begin_time']),
-                'coupons_end_time' => strtotime($data['coupons_end_time']),
+
                 'bis_account_id' => $this->getLoginUser()->id,
                 'xpoint' => $location->xpoint,
                 'ypoint' => $location->ypoint,
             ];
-            $id = model('Deal')->add($dealData);
+
+
+            // 判断更新还是添加
+            if(!empty($data['id']))
+            {
+                $id = model('Deal')->updateDealById($dealData, $data['id']);
+//                try {
+//
+//                } catch (\Exception $e)
+//                {
+//                    var_dump(model('Deal')->getLastSql());
+//                }
+            }
+            else
+            {
+                $id = model('Deal')->add($dealData);
+            }
+
             // 判断更新或添加是否成功
             if(!$id)
             {
@@ -101,7 +133,7 @@ class Deal extends Base
             if(!empty($data['id']))
             {
 
-                return $this->success('修改成功');
+                return $this->success('修改成功',url('deal/index'));
             }
             // 添加成功
             return $this->success('添加成功',url('deal/index'));

@@ -4,7 +4,7 @@
 <article class="page-container">
     <form class="form form-horizontal" id="form-article-add" method="post" action="{:url('deal/add')}">
         基本信息：
-        <input type="hidden" name="id" id="{$deal.id}">
+        <input type="hidden" name="id" value="{$deal.id}">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>团购名称：</label>
             <div class="formControls col-xs-8 col-sm-3">
@@ -27,7 +27,7 @@
             <div class="formControls col-xs-8 col-sm-2">
 				<span class="select-box">
 				<select name="se_city_id" class="select se_city_id">
-                    <option value="0">{:getSeCityName($deal.city_path)}</option>
+                    <option value="{$deal.se_city_id}">{:getSeCityName($deal.city_path)}</option>
 				</select>
 				</span>
             </div>
@@ -48,8 +48,8 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">所属子类：</label>
             <div class="formControls col-xs-8 col-sm-3 skin-minimal">
-                <div class="check-box se_category_id">
-                    {volist name=":getCategoryPath($deal.category_path)" id="vo"}
+                    <div class="check-box se_category_id">
+                    {volist name=":getCategoryPath($deal.se_category_id)" id="vo"}
                     <input type="checkbox" name="se_category_id[]" class="checkbox-moban" checked="checked" />{$vo}
                     {/volist}
                 </div>
@@ -130,13 +130,13 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">团购描述：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <script id="editor"  type="text/plain" name="description" style="width:80%;height:300px;">{$deal.description}</script>
+                <script id="editor"  type="text/plain" name="description" style="width:80%;height:300px;">{$deal.description|html_entity_decode}</script>
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">购买须知：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <script id="editor2"  type="text/plain" name="notes" style="width:80%;height:300px;">{$deal.notes}</script>
+                <script id="editor2"  type="text/plain" name="notes" style="width:80%;height:300px;">{$deal.notes|html_entity_decode}</script>
             </div>
         </div>
         <div class="row cl">
