@@ -5,28 +5,21 @@ use think\Db;
 class Waimai extends Base
 {
     protected $user =  null;
+    protected $validate = null;
     public function _initialize()
     {
         $this->user = $this->getLoginUser();
+        $this->validate = validate('Waimai');
     }
 
     public function getWaimaiByStatus()
     {
         $data = input('get.');
-        if (!validate('Waimai')->check($data)) {
+        if (!$this->validate->scene('index')->check($data)) {
             $this->error(validate('Waimai')->getError());
         }
-//        $waimai = model('Order')->where(['use_type' => 2,
-//            'bis_id' => $this->user->bis_id,
-//            'send_type' => $data['send_type'],
-//        ])->select();
 
-        /*Db::table('think_artist')
-            ->alias('a')
-            ->join('think_work w','a.id = w.artist_id')
-            ->join('think_card c','a.card_id = c.id')
-            ->select();*/
-        $waimai = Db::table('o2o_order')
+        $waimai = Db::table('o2o_order')    // 获得外卖
             ->alias('o')
             ->where(['o.use_type' => 2,
                 'o.bis_id' => $this->user->bis_id,
@@ -40,6 +33,24 @@ class Waimai extends Base
 
         return $this->fetch('',[
             'waimai' => $waimai,
+            'send_type' => $data['send_type'],
         ]);
     }
+
+    public function sendType()
+    {
+        $data = input('get.');
+        if(!$this->validate->scene('sendType')->check($data))
+        {
+            $this->error($this->validate->getError());
+        }
+
+        $result = model('Order')->allowField(true)->save(['send_type'=>$data['send_type']],['id' => $data['id']]);
+        if(!$result)
+        {
+            $this->error('状态修改失败');
+        }
+        $this->success('状态修改成功');
+    }
+
 }

@@ -1,5 +1,7 @@
 <td class="td-manage">
     <a style="text-decoration:none" class="ml-5"
-       onClick="o2o_edit('发货','{:url('waimai/status',['id'=>$vo.id,'send_type' => 1])}')" href="javascript:;" title="发货">
+       onClick="o2o_edit('完成','{:url('waimai/sendType',['id'=>$vo.id,'send_type' => 3])}')" href="javascript:;" title="完成">
         <i class="Hui-iconfont">&#xe670;</i></a>
 </td>
+<!--0:待处理-->
+<!--1:已接单 2：已发货 3 已完成-->

@@ -28,7 +28,13 @@
                 <td class="td-status">{$vo.address}</td>
                 <td class="td-status">{$vo.mobile}</td>
                 <td class="td-status">{$vo.send_type|sendStatus}</td>
-
+                {switch name="send_type" }
+                {case value="0"}{include file="waimai/handling" /}{/case}
+                {case value="1"}{include file="waimai/receive" /}{/case}
+                {case value="2"}{include file="waimai/send" /}{/case}
+                {case value="3"}{include file="waimai/finish"}{/case}
+                {default /}nimei
+                {/switch}
             </tr>
             {/volist}
             </tbody>

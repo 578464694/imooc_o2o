@@ -58,9 +58,9 @@ function sendStatus($status)
         return "<span class='label label-success radius'>已接单</span>";
     }
     if($status == 2) {
-        return "<span class='label label-danger radius'>已发货</span>";
+        return "<span class='label label-success radius'>已发货</span>";
     }
-    return "<span class='label label-danger radius'>完成</span>";
+    return "<span class='label label-success radius'>完成</span>";
     //class='label label-danger radius 为u2 自带样式
 }
 
