@@ -39,10 +39,20 @@
             </td>
             <td class="price font14">¥<span class="j-sumPrice">{$deal.current_price * $count}</span></td>
         </tr>
+
         </tbody>
+
     </table>
 
-
+    <div class="final-price-area" >
+        <label><input name="useType" type="radio" value="1" id="1" checked />堂食 </label>
+        <label><input name="useType" type="radio" value="2" id="2"/>外卖 </label>
+        <br>
+        <p class="pass-form-item address-p" style="display:none;">
+            <input type="text" id="address" name="address" value="" placeholder="地址"
+                   maxlength="50" size="10" style="min-width:250px; margin:0px 0px 0px 12px;height:22px;border-radius:4px; border:1px solid #DBDBDB ; outline:none"/>
+        </p>
+    </div>
 
     <div class="final-price-area">应付总额：<span class="sum">￥<span class="price">{$deal.current_price * $count}</span></span></div>
 
@@ -105,9 +115,28 @@
     $('.o2o_pay').click(function () {
         var count = $('.buycount-ctrl input').val();
         var price = $('.j-sumPrice').text();
-        alert(count);
-        var url = "{:url('order/index',['id' => $deal.id])}" + "&deal_count=" + count + "&total_price=" + price;
+        var use_type = $("input[name='useType']:checked").val();
+        var address = $('#address').val();
+        var add_url = (use_type == 2)?"&address="+address:"";
+
+        var url = "{:url('order/index',['id' => $deal.id])}" + "&deal_count=" + count +
+            "&total_price=" + price+"&use_type="+use_type + add_url;
+
         window.location = url;
+    });
+
+    $(function(){
+        $("input[type='radio']").click(function(){
+            var id= $(this).attr("id");
+            if(id == 1)
+            {
+                $(".address-p").hide();
+            }
+            else
+            {
+                $(".address-p").show();
+            }
+        });
     });
 </script>
 </body>

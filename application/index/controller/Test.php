@@ -30,4 +30,10 @@ class Test extends Controller
         }
     }
 
+    //    protected $pk = 'id';
+    public function testDealId()
+    {
+        $locationsInfos = model('Deal')->getLocationNameByDealId(15);
+    }
+
 }

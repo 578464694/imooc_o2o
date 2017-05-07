@@ -19,6 +19,7 @@ class Base extends Controller
         {
             return $this->redirect(url('login/index'));
         }
+        $this->assign('user',$this->getLoginUser());
     }
 
     /**

@@ -124,4 +124,34 @@ class Deal extends BaseModel
         return $result;
     }
 
+    /**
+     * 通过 deal 的 id 获得门店信息
+     * @param $id
+     * @return array
+     */
+    public function getLocationInfoByDealId($id)
+    {
+       $ids = $this->where(['id' => $id])->column('location_ids');
+       if(!$ids)
+       {
+           return [];
+       }
+
+       $location_ids = explode(',',$ids[0]);
+       $locationInfos = [];
+       foreach ($location_ids as $location_id)
+       {
+           $location_id = intval($location_id);
+           $locationInfo = model('BisLocation')->find(['id'=>$location_id]);
+
+           $locationInfos[] = [
+               'name' => $locationInfo['name'],
+               'address' => $locationInfo->address,
+               'tel' => $locationInfo->tel,
+               'open_time' => $locationInfo->open_time,
+           ];
+       }
+       return $locationInfos;
+    }
+
 }

@@ -18,14 +18,7 @@ class Index extends Controller
 
     public function welcome()
     {
-//        if (\phpmailer\Email::send('578464694@qq.com', '早上好', '我不是机器人'))
-//        {
-//            return '发送邮件成功';
-//        } else
-//        {
-//            return '发送邮件失败';
-//        }
-        
+
     }
 
     public function map()

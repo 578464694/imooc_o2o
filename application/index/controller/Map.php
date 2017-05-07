@@ -9,4 +9,9 @@ class Map extends Controller
     {
         return \Map::getStaticImage($data);
     }
+
+    public function getMapLngLat($address)
+    {
+        return \Map::getLngLat($address);
+    }
 }

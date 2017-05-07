@@ -23,6 +23,46 @@ function status($status)
     return "<span class='label label-danger radius'>删除</span>";
     //class='label label-danger radius 为u2 自带样式
 }
+//0:生成未发送给用户
+//1:已经发送给用户 2：用户已经使用 3 禁用
+function couponsStatus($status)
+{
+    if($status == 0)
+    {
+        return "<span class='label label-default radius'>未发送</span>";
+    }
+    if($status == 1)
+    {
+        return "<span class='label label-success radius'>已发送</span>";
+    }
+    if($status == 2) {
+        return "<span class='label label-danger radius'>已使用</span>";
+    }
+    return "<span class='label label-danger radius'>禁用</span>";
+    //class='label label-danger radius 为u2 自带样式
+}
+
+/**
+ * 外卖发送状态
+ * @param $status
+ * @return string
+ */
+function sendStatus($status)
+{
+    if($status == 0)
+    {
+        return "<span class='label label-default radius'>待处理</span>";
+    }
+    if($status == 1)
+    {
+        return "<span class='label label-success radius'>已接单</span>";
+    }
+    if($status == 2) {
+        return "<span class='label label-danger radius'>已发货</span>";
+    }
+    return "<span class='label label-danger radius'>完成</span>";
+    //class='label label-danger radius 为u2 自带样式
+}
 
 /**
  * 通过cURL 获取数据

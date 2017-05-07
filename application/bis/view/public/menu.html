@@ -21,7 +21,27 @@
 				</ul>
 			</dd>
 		</dl>
-		
+		<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe620;</i> 优惠券管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a _href="{:url('coupons/unuse')}" data-title="未使用" href="javascript:void(0)">未使用</a></li>
+					<li><a _href="{:url('coupons/used')}" data-title="已使用" href="javascript:void(0)">已使用</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe620;</i> 外卖管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a _href="{:url('waimai/getWaimaiByStatus',['send_type'=>0])}" data-title="待处理" href="javascript:void(0)">待处理</a></li>
+					<li><a _href="{:url('waimai/getWaimaiByStatus',['send_type'=>1])}" data-title="已接单" href="javascript:void(0)">已接单</a></li>
+					<li><a _href="{:url('waimai/getWaimaiByStatus',['send_type'=>2])}" data-title="已发货" href="javascript:void(0)">已发货</a></li>
+					<li><a _href="{:url('waimai/getWaimaiByStatus',['send_type'=>3])}" data-title="已完成" href="javascript:void(0)">已完成</a></li>
+				</ul>
+			</dd>
+		</dl>
+
 		<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 账户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>

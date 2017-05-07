@@ -1,0 +1,40 @@
+<!--包含头部文件-->
+{include file="public/header" /}
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 团购商品申请 </nav>
+<div class="page-container">
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+			<tr class="text-c">
+				<th width="80">ID</th>
+				<th width="100">优惠券号</th>
+				<th width="60">使用密码</th>
+				<th width="60">消费人数</th>
+				<th width="60">门店</th>
+				<th width="60">状态</th>
+				<!--0:生成未发送给用户-->
+				<!--1:已经发送给用户 2：用户已经使用 3 禁用-->
+			</tr>
+			</thead>
+			<tbody>
+			{volist name="coupons" id="vo"}
+			<tr class="text-c">
+				<td>{$vo.id}</td>
+				<td>{$vo.sn}</td>
+				<td>{$vo.password}</td>
+				<td>{$vo.deal_count}</td>
+				<td>{$vo.deal_name}</td>
+				<td class="td-status">{$vo.status|couponsStatus}</td>
+			</tr>
+			{/volist}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+
+</script>
+<!--包含头部文件-->
+{include file="public/footer" /}
+

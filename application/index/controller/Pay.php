@@ -1,5 +1,8 @@
 <?php
 namespace app\index\controller;
+use think\Exception;
+use think\Queue;
+
 class Pay extends Base
 {
     public function index()
@@ -26,14 +29,41 @@ class Pay extends Base
             'user_id' => $user->id,
             'deal_id' => $order->deal_id,
             'order_id' => $order->id,
+            'deal_count' => $order->deal_count,
+            'status' => 0,
         ];
+        $pay = 0;
         try {
-            $pay = model('Coupons')->add($coupons);
+            $coupon_id = model('Coupons')->add($coupons);                         // 添加优惠券
+            model('Order')->where('id',$order_id)->update(['pay_status'=>1]);    // 修改支付状态
+            model('Deal')->where('id' , $order->deal_id)                    // 修改商品购买数量
+                ->inc('buy_count',$order->deal_count)
+                ->update();
+
         } catch (\Exception $e) {
-            $this->error('订单处理失败');
+           echo $e->getMessage();
         }
         // 发送邮件
         // TODO
-        $this->success('订单处理成功',url('index/index'));
+        // 1.当前任务将由哪个类来负责处理。
+        //   当轮到该任务时，系统将生成一个该类的实例，并调用其 fire 方法
+       $jobHandlerClassName = 'app\module\job\JobEmail';
+        // 2.当前任务归属的队列名称，如果为新队列，会自动创建
+//        $jobQueueName = "helloJobQueue";
+        // 3.当前任务所需的业务数据 . 不能为 resource 类型，其他类型最终将转化为json形式的字符串
+        //   ( jobData 为对象时，需要在先在此处手动序列化，否则只存储其public属性的键值对)
+        $jobData = ['user_id' => $user->id, 'coupons_id' => $pay];  // 发送邮件的数据
+        // 4.将该任务推送到消息队列，等待对应的消费者去执行
+        $isPushed = Queue::push($jobHandlerClassName, $jobData);
+
+        // database 驱动时，返回值为 1|false  ;   redis 驱动时，返回值为 随机字符串|false
+        if ($isPushed !== false) {
+            model('Coupons')->where('id',$coupon_id)->update(['status'=>1]);   // 更新状态
+            echo model('Coupons')->getLastSql();
+            $this->success('成功发送邮件，请查收',url('index/index'));
+        } else {
+            $this->success('发送邮件失败',url('index/index'));
+        }
+
     }
 }
