@@ -90,6 +90,12 @@ class Deal extends BaseModel
         return $result;
     }
 
+    /**
+     * 根据指定条件获得 deal
+     * @param array $data
+     * @param $orders
+     * @return \think\Paginator
+     */
     public function getDealByConditions($data = [],$orders)
     {
 
@@ -152,6 +158,21 @@ class Deal extends BaseModel
            ];
        }
        return $locationInfos;
+    }
+
+    /**
+     * 获得门店
+     * @param int $id
+     * @return array|int
+     */
+    public function getBisId($id = 0)
+    {
+        if(!$id)
+        {
+            return 0;
+        }
+        $bis_id = $this->where(['id' => $id])->column('bis_id');
+        return $bis_id;
     }
 
 }

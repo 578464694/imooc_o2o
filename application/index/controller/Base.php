@@ -65,6 +65,20 @@ class Base extends Controller
     }
 
     /**
+     * 检查用户是否登陆
+     * @return bool
+     */
+    public function isLogin()
+    {
+        $user = $this->getLoginUser();
+        if($user && $user->id)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * 获取首页推荐中 商品分类数据
      */
     public function getRecommendCats()

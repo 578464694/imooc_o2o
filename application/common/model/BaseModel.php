@@ -22,6 +22,8 @@ class BaseModel extends Model
         return $this->id;   // 返回主键 id
     }
 
+
+
     /**
      *  根据 id 更新数据
      * @param $data
