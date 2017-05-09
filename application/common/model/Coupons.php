@@ -6,6 +6,12 @@ use think\Model;
 
 class Coupons extends BaseModel
 {
+    /**
+     * 获得购物券
+     * @param $bis_id
+     * @param int $neqStatus
+     * @return array
+     */
     public function getCouponsByBisId($bis_id,$neqStatus = 2)
     {
         // 0:生成未发送给用户

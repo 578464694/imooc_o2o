@@ -13,3 +13,15 @@ function show($status, $message='', $data=[]) {
         'data' => $data,
     ];
 }
+
+function asdfasdf($username)
+{
+    if(!$username)
+    {
+        return '';
+    }
+    $strLength     = mb_strlen($username, 'utf-8');
+    $firstStr     = mb_substr($username, 0, 1, 'utf-8');
+    $lastStr     = mb_substr($username, -1, 1, 'utf-8');
+    return $strLength == 2 ? $firstStr . str_repeat('*', mb_strlen($username, 'utf-8') - 1) : $firstStr . str_repeat("*", $strLength - 2) . $lastStr;
+}

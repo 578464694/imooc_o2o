@@ -45,15 +45,19 @@ class Comment extends Base
         }
         $commentData = [
             'user_id' => $this->user->id,
+            'username' => $this->user->usrename,
             'comment' => $data['content'],
             'deal_id' => $data['deal_id'],
             'comment_class' => $data['comment_class'],
         ];
-
-        model('Order')->updateById(['is_comment' => 1], $order['id']);
-        model('Comment')->save($commentData);
-        $this->success('评论成功');
-
+        //此处有坑 try catch 会进入 catch
+        $result = model('Order')->updateById(['is_comment' => 1], $order['id']);
+        $comment = model('Comment')->save($commentData);
+        if($result && $comment) {
+            $this->success('评论成功');
+        } else {
+            $this->error('评论失败');
+        }
 
     }
 
@@ -62,7 +66,7 @@ class Comment extends Base
      * @param $data
      * @return bool
      */
-    protected function checkIsCommentAndLogin($data)
+    public function checkIsCommentAndLogin($data)
     {
         if(!$this->isLogin())
         {
@@ -75,4 +79,5 @@ class Comment extends Base
         }
         return $result;
     }
+
 }

@@ -50,6 +50,10 @@ class Detail extends Base
             }
             $this->assign('timedata',$timedata);
         }
+//        $this->getCommonInfo($deal->id);   // 获得评论信息
+        $comment_class = model('Comment')->getCommonClassByDealId($deal->id); // 获得评论等级 good_comment middle_comment bad_comment score
+        $comments = model('Comment')->getCommentInfoByDealId($deal->id); // 获得评论信息
+
         return $this->fetch('',[
             'title' => $deal->name,
             'deal' => $deal,
@@ -58,6 +62,20 @@ class Detail extends Base
             'flag' => $flag,
             'mapstr' => $locations[0]->xpoint.','.$locations[0]->ypoint,
             'bis_description' => $bis_description,
+            'comment_class' => $comment_class,
+            'comments' => $comments,
         ]);
     }
+
+    /**
+     * 获得评论等级和信息
+     * @param $deal_id
+     */
+    public function getCommonInfo($deal_id)
+    {
+
+//        $this->assign('comment_class',$comment_class);
+//        $this->assign('comments',$comments);
+    }
+
 }

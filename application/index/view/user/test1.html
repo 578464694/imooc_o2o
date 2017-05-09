@@ -1,0 +1,109 @@
+<div class="user-comment">
+
+    <div class="w-user-comment static-hook-real static-hook-id-19" id="j-user-comment">
+        <div class="detail clearfix">
+
+            <div class="score clearfix">
+                <span class="desc"></span>
+                <div class="number">{:round($comment_class['score'],1)}</div> <!--四舍五入-->
+                <div class="list clearfix">
+                    <div class="star ugc-star-wrap-19 ">
+                        <div class="star ugc-star-grade" style="width:81.7px;">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="comment-level" style="">
+                <div class="level-detail">
+                    <div class="each-level">
+                        <span class="levels qa-hook-good-text">好评</span>
+                        <span class="bg-line">
+<em class="line" style="width:100%"></em>
+</span>
+                        <span class="levels qa-hook-good-num">{$comment_class['good_comment']}条</span>
+                    </div>
+                    <div class="each-level">
+                        <span class="levels qa-hook-normal-text">中评</span>
+                        <span class="bg-line">
+<em class="line" style="width:10.576923076923%"></em>
+</span>
+                        <span class="levels qa-hook-normal-num">{$comment_class['middle_comment']}条</span>
+                    </div>
+                    <div class="each-level">
+                        <span class="levels qa-hook-bad-text">差评</span>
+                        <span class="bg-line">
+<em class="line" style="width:13.461538461538%"></em>
+</span>
+                        <span class="levels qa-hook-bad-num">{$comment_class['bad_comment']}条</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status" mon="area=comment">
+                <div class="ldesc">我在百度糯米买过此单</div>
+                <a mon="element=btn&amp;element_type=nav" class="button" href="javascript:;" id="j-add-comment">
+                    我要评价</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="all-comment-area">
+        <div class="w-comment-content" id="nextComment">
+
+
+            <div class="header clearfix">
+                <div mon="area=comment&amp;element_type=filter">
+
+                </div>
+                <div class="virtual ns-track" id="j-sort" mon="area=comment&amp;element=default_filter&amp;element_type=function">
+
+                    <i class="bottom-triangle-grey"></i>
+                </div>
+                <div class="filter" id="j-comment-filter" alog-alias="bainuo-detail-comment-content-filter" alog-group="bainuo-detail-comment-content-filter" mon="area=filterComment&amp;element_type=filter">
+                    <div class="filter-pic-content" alog-alias="bainuo-detail-comment-content-filter-pic" alog-group="bainuo-detail-comment-content-filter-pic">
+
+                    </div>
+                    <div class="sort-default-time" alog-alias="bainuo-detail-comment-content-filter-time" alog-group="bainuo-detail-comment-content-filter-time" id="j-select-box" style="display: none;">
+                        <ul>
+                            <li>
+                                <a mon="element=默认" class="default default-clicked" id="j-default-sort" href="javascript:;">默认</a>
+                            </li>
+                            <li>
+                                <a mon="element=按时间" class="time" id="j-time-sort" href="javascript:;">按时间</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment-area" id="j-comment-list">
+                {volist name="comments" id="vo"}
+                <div class="p-comment-list clearfix">
+                    <div class="author-info">
+                        <div class="photo"></div>
+                        <img src="https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/00003138372a2a2a2a2a3238330000.jpg" alt="用户头像>
+
+                                                    <span class="author">{$vo.username,0|countLocation}</span>
+                    </div>
+                </div>
+                <div class="comment-info">
+                    <div class="author clearfix">
+                        <div class="fl"><span class="time">{$vo.create_time|date="Y-m-d H:i",###}说：</span></div>
+                        <div class="fr"></div>
+                    </div>
+                    <p class="content">{$vo.comment}</p>
+                </div>
+            </div>
+            {/volist}
+            <div class="star ugc-star-grade" style="width:14px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="paging">
+    <div id="j-pager-comment" alog-alias="bainuo-detail-pager-comment" alog-group="bainuo-detail-pager-comment"><div class="ui-pager"><span class="ui-pager-current">1</span><a href="#nextComment" data-pagenum="2" class="ui-pager-normal " mon="element=2">2</a><a href="#nextComment" data-pagenum="3" class="ui-pager-normal " mon="element=3">3</a><a href="#nextComment" data-pagenum="4" class="ui-pager-normal " mon="element=4">4</a><a href="#nextComment" data-pagenum="5" class="ui-pager-normal " mon="element=5">5</a><a href="#nextComment" data-pagenum="2" class="ui-pager-next " mon="element=next">下一页</a></div></div>
+</div>

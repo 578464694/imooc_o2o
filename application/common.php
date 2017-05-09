@@ -8,7 +8,18 @@
 // +----------------------------------------------------------------------
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+// 格式化名称
+//function substr_cut($username)
+//{
+//    if(!$username)
+//    {
+//        return '';
+//    }
+//    $strLength     = mb_strlen($username, 'utf-8');
+//    $firstStr     = mb_substr($username, 0, 1, 'utf-8');
+//    $lastStr     = mb_substr($username, -1, 1, 'utf-8');
+//    return $strLength == 2 ? $firstStr . str_repeat('*', mb_strlen($username, 'utf-8') - 1) : $firstStr . str_repeat("*", $strLength - 2) . $lastStr;
+//}
 // 应用公共文件
 function status($status)
 {
@@ -89,6 +100,11 @@ function doCurl($url, $type=0, $data=[])
     curl_close($curl);
     return $output;
 }
+
+//function test($staus)
+//{
+//    return ""
+//}
 
 // 商户入驻申请的文案
 function bisRegister($status)
@@ -209,11 +225,22 @@ function getCategoryPath($path)
     return '';
 }
 
+
+
+
+
 /**
  * 获得门店数量
  */
-function countLocation($ids)
+function countLocation($ids,$flag = 1)
 {
+    if($flag == 0)
+    {
+        $strlen     = mb_strlen($ids, 'utf-8');
+        $firstStr     = mb_substr($ids, 0, 1, 'utf-8');
+        $lastStr     = mb_substr($ids, -1, 1, 'utf-8');
+        return $strlen == 2 ? $firstStr . str_repeat('*', mb_strlen($ids, 'utf-8') - 1) : $firstStr . str_repeat("*", $strlen - 2) . $lastStr;
+    }
     if(!$ids)
     {
         return 1;
@@ -235,17 +262,8 @@ function setOrderSn()
 }
 
 /**
- * 将数据封装成　js 可识别的形式
- * @param $status
- * @param string $message
- * @param array $data
- * @return array
+ * 此处有奇葩 bug，必须添加这个方法，否则页面不能加载
  */
-function show($status, $message='', $data=[]) {
-    return [
-        'status' => intval($status),
-        'message' => $message,
-        'data' => $data,
-    ];
-}
+
+
 ?>
