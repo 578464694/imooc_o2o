@@ -7,7 +7,7 @@ use think\Controller;
  * Class Login
  * @package app\bis\controller
  */
-class Login extends Controller
+class Login extends Base
 {
     protected $validate = null;
     public function _initialize()

@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 
-class Location extends Controller
+class Location extends Base
 {
     protected $location = null;
     protected $validate = null;

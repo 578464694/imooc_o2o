@@ -253,17 +253,19 @@ function countLocation($ids,$flag = 1)
     return 1;
 }
 
-// 设置订单号
+/**
+ * 设置订单号
+ * 固定 19位
+ * @return string
+ */
 function setOrderSn()
 {
     list($t1,$t2) = explode(' ',microtime());
     $t3 = explode('.',$t1 * 10000);
-    return $t2.$t3[0].(mt_rand(10000,99999));
+    $orderSn = $t2.$t3[0].(mt_rand(10000,99999));
+    $orderSn = str_pad($orderSn,19,"0",STR_PAD_RIGHT);
+    return $orderSn;
 }
-
-/**
- * 此处有奇葩 bug，必须添加这个方法，否则页面不能加载
- */
 
 
 ?>

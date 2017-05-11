@@ -3,14 +3,16 @@ namespace app\admin\controller;
 use think\Controller;
 class Base extends Controller
 {
-    protected $user = null;
+    protected $account = null;
     public function _initialize()
     {
+        // 判断管理员是否登陆
         $isLogin = $this->isLogin();
         if(!$isLogin)
         {
             return $this->redirect(url('login/index'));
         }
+        $this->assign('user',$this->getLoginUser());
     }
 
     public function status()
@@ -35,12 +37,33 @@ class Base extends Controller
         }
     }
 
+    /**
+     * 获得登陆管理员
+     * @return mixed|null
+     */
+    public function getLoginUser()
+    {
+        if(!$this->account)
+        {
+            $this->account = session('adminAccount','','admin');
+        }
+        return $this->account;
+    }
+
+    /**
+     * 是否登陆
+     * @return bool
+     */
     public function isLogin()
     {
-        $this->user = $this->getLoginUser();
-        if($this->user && $this->user->id)
+        $user = $this->getLoginUser();
+        if($user && $user->id)
         {
-
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

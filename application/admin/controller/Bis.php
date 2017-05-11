@@ -4,7 +4,7 @@ namespace app\admin\controller;
 use phpmailer\Email;
 use think\Controller;
 
-class Bis extends Controller
+class Bis extends Base
 {
     protected $obj = null;
     protected $validate = null;

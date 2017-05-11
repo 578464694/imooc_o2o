@@ -7,7 +7,7 @@
  */
 namespace app\admin\controller;
 use think\Controller;
-class Deal extends Controller
+class Deal extends Base
 {
     protected $deal = null;
     protected $city = null;

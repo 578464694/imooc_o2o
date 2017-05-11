@@ -11,14 +11,13 @@ class User extends BaseModel
     {
 
         // 校验数据是否为数组
-        if(!is_array($data))
-        {
+        if (!is_array($data)) {
             exception('传递的数据不是数组');
         }
         $data['status'] = 1;   // 状态为待审
         return $this->data($data)
-                    ->allowField(true) // 过滤数据表中没有的字段
-                    ->save();   // 返回主键 id
+            ->allowField(true)// 过滤数据表中没有的字段
+            ->save();   // 返回主键 id
     }
 
     /**
@@ -28,12 +27,28 @@ class User extends BaseModel
      */
     public function getUserByUserName($username)
     {
-        if(!$username)
-        {
+        if (!$username) {
             exception('用户名不合法');
         }
         $data = ['username' => $username];
         $result = $this->where($data)->find();
+        return $result;
+    }
+
+    /**
+     * 根据状态获得用户
+     * @param int $status
+     * @return \think\Paginator
+     */
+    public function getUserByStatus($status = 1)
+    {
+        $order = [
+            'listorder' => 'desc',
+        ];
+        $data = [
+            'status' => $status,
+        ];
+        $result = $this->where($data)->order($order)->paginate();
         return $result;
     }
 

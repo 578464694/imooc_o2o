@@ -8,9 +8,12 @@ use app\common\validate;
 
 class Coupons extends Base
 {
-
+    protected $validate = null;
+    protected $obj = null;
     public function _initialize()
     {
+        $this->validate = validate('Coupons');
+        $this->obj = model('Coupons');
     }
 
     public function index()
@@ -49,7 +52,7 @@ class Coupons extends Base
     public function status()
     {
         $data = input('get.');
-        if(!validate('Coupons')->scene('status')->check($data))
+        if(!$this->validate->scene('status')->check($data))
         {
             $this->error(validate('Coupons')->getError());
         }
@@ -65,7 +68,24 @@ class Coupons extends Base
     {
         if(request()->isPost())
         {
-
+            // 数据校验
+            $data = input('post.');
+            if(!$this->validate->scene('queryCoupons')->check($data))
+            {
+                $this->error(validate('Coupons')->getError());
+            }
+            // 查询优惠券
+            $query = [
+                'sn' => $data['coupons_id'],
+            ];
+            $coupon = $this->obj->where($query)->find(); // 查询优惠券
+            if(!$coupon)
+            {
+                print_r('test');
+            }
+            return $this->fetch('',[
+                'coupon' => $coupon,
+            ]);
         }
         else
         {
