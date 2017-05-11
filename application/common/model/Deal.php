@@ -124,7 +124,7 @@ class Deal extends BaseModel
             $datas[] = "city_id = ".$data['city_id'];
         }
         $datas[] = "status=1";
-        $result = $this->where(implode(' AND ',$datas))->order($order)->paginate(2);
+        $result = $this->where(implode(' AND ',$datas))->order($order)->paginate(10);
         return $result;
     }
 

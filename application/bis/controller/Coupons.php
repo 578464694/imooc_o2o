@@ -60,4 +60,16 @@ class Coupons extends Base
         }
         $this->success('状态修改成功');
     }
+
+    public function query()
+    {
+        if(request()->isPost())
+        {
+
+        }
+        else
+        {
+            return $this->fetch();
+        }
+    }
 }
