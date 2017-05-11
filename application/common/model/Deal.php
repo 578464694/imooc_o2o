@@ -1,6 +1,6 @@
 <?php
 namespace app\common\model;
-
+use think\Db;
 
 class Deal extends BaseModel
 {
@@ -72,8 +72,6 @@ class Deal extends BaseModel
             'se_city_id' => $se_city_id,
             'status' => 1,
         ];
-
-
 
         $order = [
             'listorder' => 'desc',
@@ -173,6 +171,47 @@ class Deal extends BaseModel
         }
         $bis_id = $this->where(['id' => $id])->column('bis_id');
         return $bis_id;
+    }
+
+    /**
+     * 获得商品剩余数量
+     * @param $id
+     * @return array
+     */
+    public function getTotalCountById($id)
+    {
+        $result = $this->field('buy_count,total_count')->find($id);
+        return $result;
+    }
+
+    // 通过事务方式更新剩余数量
+//    public function updateDealCount($id, $count)
+//    {
+//        Db::startTrans();
+//        try{
+//            $deal = $this->find($id);
+//            $remainCount = $deal->total_count - $deal->buy_count;
+//            if($remainCount < $count)
+//            Db::table('think_user')->find(1);
+//            Db::table('think_user')->delete(1);
+//            // 提交事务
+//            Db::commit();
+//        } catch (\Exception $e) {
+//            // 回滚事务
+//            Db::rollback();
+//        }
+//
+//    }
+    /**
+     * 更新商品购买数量
+     * @param $id
+     * @param $buy_count
+     * @return bool
+     */
+    public function updateBuyCount($id,$buy_count)
+    {
+        $result = $this->where('id',$id)->setInc('buy_count',$buy_count);
+        return $result;
     }
 
 }

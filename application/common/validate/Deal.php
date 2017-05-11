@@ -28,11 +28,12 @@ class Deal extends Validate
         ['location_ids','require|array','请选择支持门店'],
         ['coupons_begin_time','require|date','请选择团购券开始时间|团购券开始时间格式为日期'],
         ['coupons_end_time','require|date','请选择团购券结束时间|团购券结束时间格式为日期'],
+        ['deal_count','require|>=:1','请选择订单数量|订单数量应至少为 1']
     ];
 
     protected $scene = [
         'addDeal' => ['name','category_id','bis_id','image','description','start_time',
-                        'end_time','origin_price','current_price','notes','location_ids'],  // 添加团购商品情景
+                        'end_time','origin_price','current_price','notes','location_ids','deal_count'],  // 添加团购商品情景
         'test' => ['start_time','end_time'],
     ];
 
