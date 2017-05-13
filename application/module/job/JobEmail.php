@@ -9,22 +9,29 @@ use think\queue\Job;
  */
 class JobEmail
 {
+    /**
+     * 以队列的方式发送邮件
+     * @param Job $job
+     * @param $data
+     * @return bool
+     */
     public function fire(Job $job,$data)
     {
-        $user = model('User')->find($data['user_id']);
-        $coupons = model('Coupons')->find($data['coupons_id']);
-        $deal = model('Deal')->find($coupons['deal_id']);
-        $bis = model('Bis')->find($deal['bis_id']);
-        $order = model('Order')->find($coupons['order_id']);
+        $user = model('User')->find($data['user_id']); // 获取用户数据
+        $coupons = model('Coupons')->where('id',$data['coupons_id'])->find(); // 获取优惠券数据
 
+        $deal = model('Deal')->find($coupons['deal_id']); // 获取商品数据
+        $bis = model('Bis')->find($deal['bis_id']);        // 获取商户
+        $order = model('Order')->find($coupons['order_id']); //获取订单
+        // 构造发送邮件信息
         $email = $user->email;
         $title = '您收到一张 o2o 优惠券';
         $content = "";
-        $info = $deal->getLocationInfoByDealId($deal->id);
+        $info = $deal->getLocationInfoByDealId($deal->id); // 构造商户信息
         $info = $this->formatLocationInfo($info);
         $content .= '消费门店：'.$info;
-        $content .= '<br>您的优惠券号：'.$coupons['sn'];
-        $content .= '<br>使用密码：'.$coupons['password'];
+        $content .= '<br>您的优惠券号：'.$coupons->sn;
+        $content .= '<br>使用密码：'.$coupons->password;
         $content .= '<br>人数：'.$order['deal_count'];
         $content .= '<br>请勿泄露优惠券号和密码';
 

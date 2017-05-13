@@ -5,7 +5,7 @@ class Lists extends Base
 {
     public function index()
     {
-        $firstCatIds = [];
+        $firstCatIds = []; // 一级分类ID
         $id = input('get.id', 0, 'intval');// 获取参数 id
         $categoryParentId = 0;
         // 获取一级条目
@@ -23,7 +23,7 @@ class Lists extends Base
         }
         elseif($id) // 二级分类
         {
-            $category = model('Category')->get($id);
+            $category = model('Category')->find($id);
             if(!$category || $category->status != 1)
             {
                 $this->error('数据不合法');

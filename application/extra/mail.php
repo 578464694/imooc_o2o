@@ -5,8 +5,8 @@
 return [
     'host' => 'smtp.163.com',
     'port' => 25,
-    'avatar' => 'Wangxiaoming',
-    'username' => '15075652703@163.com',
-    'password' => 'wang7452525',
+    'avatar' => 'Gongjiaqi',
+    'username' => '15532620234@163.com',
+    'password' => 'gong181818',
 
 ];

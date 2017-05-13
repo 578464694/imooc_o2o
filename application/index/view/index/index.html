@@ -36,7 +36,7 @@
                             <h3>美食推荐</h3>
                             <ul class="reco-words">
                                 {volist name="cate_data" id="vo" length="4"}
-                                    <li><a href="{:url('lists/index',['id' => $vo.id])}" target="_blank">{$vo.name}</a></li>
+                                    <li><a href="{:url('detail/index',['id' => $vo.id])}" target="_blank">{$vo.name}</a></li>
                                 {/volist}
                                 <li><a class="no-right-border no-right-padding" target="_blank" href="{:url('lists/index',['id' => 1])}">全部<span class="all-cate-arrow"></span></a></li>
                             </ul>
