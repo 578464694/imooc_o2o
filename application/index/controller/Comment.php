@@ -45,7 +45,7 @@ class Comment extends Base
         }
         $commentData = [
             'user_id' => $this->user->id,
-            'username' => $this->user->usrename,
+            'username' => $this->user['username'],
             'comment' => $data['content'],
             'deal_id' => $data['deal_id'],
             'comment_class' => $data['comment_class'],
