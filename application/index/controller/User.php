@@ -5,17 +5,18 @@ use think\Controller;
 use think\Exception;
 use think\Request;
 
-class User extends Controller
+class User extends Base
 {
     protected $request = null;
     protected $validate = null;
     protected $obj = null;
-
+    protected $account = null;
     public function _initialize()
     {
         $this->request = Request::instance();
         $this->validate = validate('User');
         $this->obj = model('User');
+        $this->account = $this->getLoginUser();
     }
 
     public function login()
@@ -111,5 +112,57 @@ class User extends Controller
     {
         session(null,'o2o');
         $this->redirect(url('user/login'));
+    }
+
+    /**
+     * 修改密码
+     * @return mixed
+     */
+    public function changePwd()
+    {
+        if(request()->isPost())
+        {
+
+            $data = input('post.'); // 数据校验
+            $this->assign('user',$data); // 返显数据
+            if(!$this->validate->scene('changePwd')->check($data))
+            {
+                $this->error($this->validate->getError());
+            }
+
+            // 从数据库查找用户信息
+            $user = model('User')->find($this->account->id);
+            if(!$user || !$user->id)
+            {
+                $this->error('用户不存在');
+            }
+
+            // 校验旧密码是否正确
+            if($user->password != md5($data['old_pwd'].$user->code))
+            {
+
+                $this->error('旧密码不正确');
+            }
+
+            // 数据入库
+            $pwd = [
+              'password' => md5($data['new_pwd'].$user->code),
+            ];
+            try {
+                $id = $this->obj->updateById($pwd, $user->id); // 更新密码
+                $user = $this->obj->find($id);
+                if(!$user || !$user->id)
+                {
+                    $this->error('用户不存在');
+                }
+                session('o2o_user', $user, 'o2o'); // 更新 session
+                $this->success('密码修改成功');
+            } catch (\Exception $e) {
+                $this->error($e->getMessage());
+            }
+        }
+        else {
+            return $this->fetch();
+        }
     }
 }
