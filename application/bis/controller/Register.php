@@ -33,6 +33,9 @@ class Register extends Controller
         ]);
     }
 
+    /**
+     *　商户注册
+     */
     public function add()
     {
         if (!request()->isPost()) {
@@ -41,8 +44,9 @@ class Register extends Controller
         // 获取表单数据
         $data = input('post.');
         // 校验表单数据
+
         $validate = validate('Bis');
-        if (!$validate->scene('add')->check($data)) {
+        if (!$validate->scene('add')->check($data)) {// 设置校验场景为　ａｄｄ
             $this->error($validate->getError());
         }
         // 总店相关信息校验
@@ -79,9 +83,9 @@ class Register extends Controller
             'faren_tel' => $data['faren_tel'],
         ];
 
-        $bisId = model('Bis')->add($bisInfo);
+        $bisId = model('Bis')->add($bisInfo);// 商户信息添加到　ｂｉｓ表
         $data['cat'] = '';
-        if (!empty($data['se_category_id'])) {
+        if (!empty($data['se_category_id'])) {//　获得子分类信息
             $data['cat'] = implode('|', $data['se_category_id']);
         }
         // 总店相关信息入库
