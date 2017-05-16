@@ -64,6 +64,7 @@ class Base extends Controller
         return $this->account;
     }
 
+
     /**
      * 检查用户是否登陆
      * @return bool

@@ -36,4 +36,16 @@ class BaseModel extends Model
         return $result;
     }
 
+    /**
+     * 根据条件查找数据
+     * @param $data
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function queryByData($data,$status = 1)
+    {
+        $data['status'] = $status;
+        $result = $this->where($data)->select();
+        return $result;
+    }
+
 }

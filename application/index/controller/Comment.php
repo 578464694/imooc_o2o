@@ -45,7 +45,11 @@ class Comment extends Base
         }
         $commentData = [
             'user_id' => $this->user->id,
+<<<<<<< HEAD
             'username' => $this->user->username,
+=======
+            'username' => $this->user['username'],
+>>>>>>> bissearch
             'comment' => $data['content'],
             'deal_id' => $data['deal_id'],
             'comment_class' => $data['comment_class'],

@@ -1,0 +1,55 @@
+<!--包含头部文件-->
+{include file="public/header" /}
+<style type="text/css">
+    .tip{
+        color: red;
+    }
+    .cancel{
+        background: #c0c0c0;border-bottom: #c0c0c0;
+    }
+</style>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 修改密码 </nav>
+<div class="page-container">
+    <form class="form form-horizontal" id="form-article-add" method="post" action="{:url('user/changepwd')}">
+        基本信息：
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">原密码：</label>
+            <div class="formControls col-xs-8 col-sm-3">
+                <input type="password" class="input-text" value="" placeholder="" id="old_pwd" name="old_pwd">
+                <span id="tip_1" class="tip"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">新密码：</label>
+            <div class="formControls col-xs-8 col-sm-3">
+                <input type="password" class="input-text" value="" placeholder="" id="new_pwd" name="new_pwd">
+                <span id="tip_2" class="tip"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">确认密码：</label>
+            <div class="formControls col-xs-8 col-sm-3">
+                <input type="password" class="input-text" value="" placeholder="" id="re_new_pwd" name="re_new_pwd">
+                <span id="tip_3" class="tip"></span>
+            </div>
+        </div>
+        <div class="row cl">
+
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button onClick="article_save_submit();" class="btn btn-primary radius" id="change" type="submit"><i class="Hui-iconfont">&#xe632;</i> 修改</button>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js">
+</script>
+<script type="text/javascript" src="__STATIC__/index/js/changpwd.js">
+
+</script>
+<!--包含头部文件-->
+{include file="public/footer" /}
+

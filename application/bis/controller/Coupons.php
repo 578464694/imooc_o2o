@@ -74,9 +74,17 @@ class Coupons extends Base
             {
                 $this->error(validate('Coupons')->getError());
             }
+
+            // 获得 deal_ids
+            $queryDeal = [
+                'bis_id' => $this->account->bis_id,
+            ];
+            $deals = model('Deal')->queryByData($queryDeal);
+
             // 查询优惠券
             $query = [
                 'sn' => $data['coupons_id'],
+                ''
             ];
             $coupon = $this->obj->where($query)->find(); // 查询优惠券
             if(!$coupon)
