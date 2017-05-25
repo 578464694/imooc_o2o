@@ -17,6 +17,8 @@ class Base extends Controller
         $cats = $this->getRecommendCats();
         // 获得登陆用户
         $user = $this->getLoginUser();
+        // 将城市信息保存到 session 中
+        session('city',$this->city,'o2o');
 
         $this->assign('citys', $citys);
         $this->assign('city',$this->city);

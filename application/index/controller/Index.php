@@ -18,6 +18,7 @@ class Index extends Base
         // 获取 4个 子分类
         $cate_cats = model('Category')->getNormalRecommendCategoryByParentId(1,4);
 
+
         return $this->fetch('',[
             'big_pictures' => $big_pictures,
             'advert' => $advert,

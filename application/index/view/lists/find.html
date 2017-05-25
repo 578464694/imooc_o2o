@@ -1,0 +1,99 @@
+{include file="public/head,public/nav"}
+<style>
+    p {
+        display: block;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+    }
+
+    .noresult-tip {
+        text-align: center;
+        color: rgb(102, 102, 102);
+        padding: 0px 0px 23px;
+        font: 16px/28px "Microsoft Yahei", 宋体;
+    }
+    .word {
+        font-style: normal;
+        color: #fe5e88;
+    }
+
+</style>
+<div class="page-body">
+    <div class="filter-bg">
+        <div class="filter-wrap">
+
+            <ul class="itemlist eight-row-height">
+                {if condition="!empty($deals)"}
+                <p class="noresult-tip">抱歉，没有找到与&nbsp;"<em class="word">{$name}</em>"&nbsp;相关的团购                    请换一个关键词再试试吧</p>
+                {/if}
+                {volist name="deals" id="vo"}
+                <li class="j-card">
+                    <a>
+                        <div class="imgbox">
+                            <ul class="marketing-label-container">
+                                <li class="marketing-label marketing-free-appoint"></li>
+                            </ul>
+                            <div class="range-area">
+                                <div class="range-bg"></div>
+                                <div class="range-inner">
+                                    <!--<span class="white-locate"></span>-->
+                                    <!--安贞 六里桥 丽泽桥 安定门 劲松 昌平镇 航天桥 通州区 通州北苑-->
+                                </div>
+                            </div>
+                            <div class="borderbox">
+                                <a href="{:url('detail/index',['id' => $vo.id])}" target="_blank">
+                                        <img src="{$vo.image}" />
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="contentbox">
+                        <a href="{:url('detail/index',['id' => $vo.id])}" target="_blank">
+                            <div class="header">
+                                <h4 class="title ">【{$vo.location_ids|countLocation}店通用】{$vo.name}</h4>
+                                <div class="collected">精选</div>
+                            </div>
+                            <p>{$vo.name}</p>
+                        </a>
+                        <div class="add-info"></div>
+                        <div class="pinfo">
+                            <span class="price"><span class="moneyico">¥</span>{$vo.current_price}</span>
+                            <span class="ori-price">价值<span class="price-line">¥<span>{$vo.origin_price}</span></span></span>
+                        </div>
+                        <span class="sold">已售{$vo.buy_count}</span>
+                        <div class="footer">
+                            <!--<span class="comment">4.6分</span>-->
+                            <div class="bottom-border"></div>
+                        </div>
+                    </div>
+                </li>
+                {/volist}
+            </ul>
+            {:pagination($deals)}
+        </div>
+    </div>
+</div>
+
+<div class="footer-content">
+    <div class="copyright-info">
+
+    </div>
+</div>
+<script>
+    $(".tab-item-wrap").click(function(){
+        var index = $(".tab-item-wrap").index(this);
+        $(".tab-item-wrap").removeClass("selected");
+        $(".district-cont-wrap").css({display: "none"});
+        $(this).addClass("selected");
+        $(".district-cont-wrap").eq(index).css({display: "block"});
+    });
+
+    $(".sort-area a").click(function(){
+        $(".sort-area a").removeClass("sort-default-active").css({color: "#666"});
+        $(this).addClass("sort-default-active").css({color: "#ff4883"});
+    });
+</script>
+</body>
+</html>

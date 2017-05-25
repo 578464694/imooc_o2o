@@ -48,4 +48,17 @@ class BaseModel extends Model
         return $result;
     }
 
+    /**
+     * 分页查询数据
+     * @param $data
+     * @param int $status
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function queryByDataPaginate($data,$status = 1)
+    {
+        $data['status'] = $status;
+        $result = $this->where($data)->paginate(5);
+        return $result;
+    }
+
 }

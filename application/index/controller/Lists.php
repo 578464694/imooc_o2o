@@ -70,10 +70,40 @@ class Lists extends Base
         return $this->fetch('',[
             'categorys' => $categorys,
             'sedCategorys' => $sedCategorys,
-            'id' => $id,
+            'id' => $id, // 商品分类
             'categoryParentId' => $categoryParentId,
             'orderflag' => $orderflag,
             'deals' => $deals,
+        ]);
+    }
+
+    /**
+     * 根据商品名模糊查询商品
+     * @return mixed
+     * 王宇
+     */
+    public function find()
+    {
+        $name = input('get.name','');
+        if(!$name) {
+            $this->error('请输入查询条件');
+        }
+        // 获取城市 sesssion
+        $city = session('city','','o2o');
+        if(!$city) {
+            $this->error('获取城市信息失败');
+        }
+        // 查询商品数据
+        $data = [
+            'name' => ['like','%'.$name.'%'],
+            'se_city_id' => $city->id,
+        ];
+        // 查询商品
+        $deals = model('Deal')->queryByDataPaginate($data);
+
+        return $this->fetch('',[
+           'deals' => $deals,
+            'name' => $name, // 查询关键字
         ]);
     }
 }

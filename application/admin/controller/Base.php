@@ -15,6 +15,10 @@ class Base extends Controller
         $this->assign('user',$this->getLoginUser());
     }
 
+    /**
+     * 更新状态
+     * 王宇
+     */
     public function status()
     {
         $data = input('get.');

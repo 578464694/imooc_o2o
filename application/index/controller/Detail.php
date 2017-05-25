@@ -74,8 +74,6 @@ class Detail extends Base
     public function getCommonInfo($deal_id)
     {
 
-//        $this->assign('comment_class',$comment_class);
-//        $this->assign('comments',$comments);
     }
 
 }

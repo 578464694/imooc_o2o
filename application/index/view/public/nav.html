@@ -1,14 +1,39 @@
+<style>
+
+    .sear{
+        width:424px;
+        height: 38px;
+        margin:0 auto;
+    }
+    .sear .sea{
+        width:424px;
+        height: 32px;
+        border:1px solid #ccc;
+        padding:5px;
+    }
+    .sear .sea input{
+        border:0;
+        height:30px;
+        float:left;
+        display:inline;
+    }
+    .sear .sea input:first-child{
+        width:366px;
+    }
+    .sear .sea input:last-child{
+        width:30px;
+        padding:2px;
+        background:#fff;
+        cursor: pointer;
+    }
+</style>
 <div class="search">
     <img src="__STATIC__/index/image/logo.png" />
-    <form action=""  class="sear">
+    <form action="{:url('lists/find')}"  class="sear">
         <div class="sea">
-            <input type="text" placeholder="请输入搜索内容">
-            <input type="button" value="搜索">
+            <input type="text" name="name" placeholder="请输入搜索内容">
+            <input type="submit" value="搜索">
         </div>
-
-
-
-
     </form>
 </div>
 
